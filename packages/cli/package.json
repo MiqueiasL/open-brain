@@ -1,0 +1,17 @@
+{
+  "name": "openbrain-cli",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "openbrain": "./bin/openbrain.js"
+  },
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@openbrain/core": "workspace:*",
+    "@openbrain/memory": "workspace:*",
+    "@openbrain/drivers": "workspace:*"
+  }
+}

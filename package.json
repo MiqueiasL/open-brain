@@ -1,0 +1,30 @@
+{
+  "name": "openbrain",
+  "version": "0.1.0",
+  "description": "The Universal Autonomous AI Brain for Every Screen (Windows, macOS, Linux, Android, iOS)",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "openbrain": "node packages/cli/bin/openbrain.js",
+    "dev": "node packages/cli/bin/openbrain.js"
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "autonomous",
+    "universal-memory",
+    "mcp",
+    "cross-platform",
+    "android",
+    "linux",
+    "kali",
+    "windows",
+    "macos"
+  ],
+  "author": "Next Wave & Open Source Contributors",
+  "license": "MIT"
+}
