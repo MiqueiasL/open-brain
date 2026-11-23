@@ -46,24 +46,22 @@
 | **OB-03** | **Motor de Acessibilidade (`OpenBrainAccessibilityService`)**<br>Captura em tempo real da árvore de nós da UI (`AccessibilityNodeInfo`), extração de textos/botões e injeção de toques. | Agente | 5h 30m | ~70.000 | 📋 A Fazer | D+4 |
 | **OB-04** | **Cápsula Flutuante Minimalista (Floating HUD Overlay)**<br>Janela flutuante (`TYPE_APPLICATION_OVERLAY`) compacta com modo bolha recolhida e modo expandido sobre qualquer app. | Agente | 3h 30m | ~45.000 | 📋 A Fazer | D+4 |
 | **OB-05** | **Ponte de Instalação Autônoma de APKs (OTA Installer)**<br>`PackageInstaller` e `FileProvider` permitindo que o OpenBrain baixe e instale APKs sozinho sem PC. | Agente + Dev | 3h 00m | ~40.000 | 📋 A Fazer | D+5 |
-
-**Subtotal Sprint 1:**  
-⏱️ **Dev Solo:** ~18h 30m  
-🪙 **Tokens Agente Solo:** ~245.000 tokens  
+| **OB-06** | **Módulo de Controle de Hardware Básico (Paridade Siri/Google)**<br>Lanterna, Volume, Brilho, Wi-Fi/Bluetooth panel, Não Perturbe e Telemetria de Bateria. | Agente | 3h 30m | ~45.000 | 📋 A Fazer | D+5 |
 
 ---
 
-## 🏃 Sprint 2: Cérebro no Bolso & Ponte de Memória Universal
-**Meta da Sprint:** Conectar o OpenBrain Android ao cérebro de IA (Gemini/Claude) e à base universal de memória (`ai-memory`), permitindo que ele lembre de tudo o que foi decidido no PC.  
-**Prazo Total Estimado:** 3 dias (Dev Solo) · 1 sessão focada (Agente Solo)
+## 🏃 Sprint 2: Habilidades do Cotidiano, Voz & Ponte de Memória
+**Meta da Sprint:** Cobrir 100% das funções do dia a dia (Alarmes, Timers, WhatsApp, Spotify, Mapas, Voz STT/TTS) e conectar a Memória Universal (`ai-memory`).  
+**Prazo Total Estimado:** 3 a 4 dias (Dev Solo) · 1 a 2 sessões focadas (Agente Solo)
 
 ### 📌 Backlog da Sprint 2
 
 | ID | Tarefa | Responsável | ⏱️ Dev Solo | 🪙 Tokens IA | Status | Prazo |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **OB-06** | **Cliente LLM Leve no Celular (Tool-Calling Engine)**<br>Execução de chamadas diretas de IA com streaming e suporte a ferramentas nativas via HTTP nativo. | Agente | 3h 30m | ~45.000 | 📋 Backlog | D+6 |
-| **OB-07** | **Ponte de Sincronização AI-Memory (Universal Memory Sync)**<br>Conector local/remoto para sincronizar as notas e regras de `D:\ai-memory-data` diretamente no smartphone. | Agente | 4h 00m | ~60.000 | 📋 Backlog | D+7 |
-| **OB-08** | **Módulo de Comandos de Voz & Whisper Local/API**<br>Reconhecimento de voz rápido ativado com 1 toque na bolha flutuante para comandos livres. | Agente | 4h 30m | ~65.000 | 📋 Backlog | D+8 |
+| **OB-07** | **Módulo de Produtividade & Tempo (Alarmes, Timers, Agenda)**<br>Alarmes, cronômetros, eventos de calendário e lembretes com notificação nativa. | Agente | 3h 00m | ~40.000 | 📋 Backlog | D+6 |
+| **OB-08** | **Módulo de Mídia, Comunicação & Navegação**<br>Spotify / YouTube play, envio rápido no WhatsApp, discagem e rotas no Waze/Google Maps. | Agente | 3h 30m | ~45.000 | 📋 Backlog | D+7 |
+| **OB-09** | **Motor de Voz Bidirecional (STT & TTS Neural PT-BR)**<br>Entrada de voz rápida com SpeechRecognizer + resposta falada natural via TextToSpeech. | Agente | 3h 30m | ~50.000 | 📋 Backlog | D+8 |
+| **OB-10** | **Ponte de Sincronização AI-Memory (Universal Memory Sync)**<br>Conector local/remoto para sincronizar as notas e regras de `D:\ai-memory-data` diretamente no smartphone. | Agente | 4h 00m | ~60.000 | 📋 Backlog | D+9 |
 
 ---
 
