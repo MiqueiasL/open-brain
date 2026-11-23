@@ -35,18 +35,19 @@
 
 ## 🏃 Sprint 1: Fundação Android, Execução Elevada & Acessibilidade
 **Meta da Sprint:** Ter a casca Android instalada no celular, capaz de rodar comandos de sistema via Shizuku (sem PC) e ler elementos na tela via Acessibilidade.  
-**Prazo Total Estimado:** 3 a 4 dias (Dev Solo) · 1 a 2 sessões focadas (Agente Solo)
+**Prazo Total Estimado:** 3 a 4 dias (Dev Solo) · 1 a 2 sessões focadas (Agente Solo)  
+**Status da Sprint:** 🟢 **100% CONCLUÍDA** (APK v0.1 Compilado com Sucesso: `OpenBrain_v0.1.apk`)
 
 ### 📌 Backlog da Sprint 1
 
 | ID | Tarefa | Responsável | ⏱️ Dev Solo | 🪙 Tokens IA | Status | Prazo |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **OB-01** | **Scaffold do Módulo Android (`drivers/android`)**<br>Estruturar Gradle 8.4, SDK 34, Kotlin e `AndroidManifest.xml` no Disco D. | Agente + Dev | 2h 30m | ~35.000 | 📋 A Fazer | D+2 |
-| **OB-02** | **Integração Shizuku API (Wireless ADB sem PC)**<br>Adicionar dependência `rikka.shizuku:api`, binding IPC e permissões para rodar comandos shell de sistema. | Agente | 4h 00m | ~55.000 | 📋 A Fazer | D+3 |
-| **OB-03** | **Motor de Acessibilidade (`OpenBrainAccessibilityService`)**<br>Captura em tempo real da árvore de nós da UI (`AccessibilityNodeInfo`), extração de textos/botões e injeção de toques. | Agente | 5h 30m | ~70.000 | 📋 A Fazer | D+4 |
-| **OB-04** | **Cápsula Flutuante Minimalista (Floating HUD Overlay)**<br>Janela flutuante (`TYPE_APPLICATION_OVERLAY`) compacta com modo bolha recolhida e modo expandido sobre qualquer app. | Agente | 3h 30m | ~45.000 | 📋 A Fazer | D+4 |
-| **OB-05** | **Ponte de Instalação Autônoma de APKs (OTA Installer)**<br>`PackageInstaller` e `FileProvider` permitindo que o OpenBrain baixe e instale APKs sozinho sem PC. | Agente + Dev | 3h 00m | ~40.000 | 📋 A Fazer | D+5 |
-| **OB-06** | **Módulo de Controle de Hardware Básico (Paridade Siri/Google)**<br>Lanterna, Volume, Brilho, Wi-Fi/Bluetooth panel, Não Perturbe e Telemetria de Bateria. | Agente | 3h 30m | ~45.000 | 📋 A Fazer | D+5 |
+| **OB-01** | **Scaffold do Módulo Android (`drivers/android`)**<br>Estruturar Gradle 8.4, SDK 34, Kotlin e `AndroidManifest.xml` no Disco D. | Agente + Dev | 2h 30m | ~35.000 | 🟢 Concluído | D+0 |
+| **OB-02** | **Integração Shizuku API (Wireless ADB sem PC)**<br>Adicionar dependência `rikka.shizuku:api`, binding IPC e permissões para rodar comandos shell de sistema. | Agente | 4h 00m | ~55.000 | 🟢 Concluído | D+0 |
+| **OB-03** | **Motor de Acessibilidade (`OpenBrainAccessibilityService`)**<br>Captura em tempo real da árvore de nós da UI (`AccessibilityNodeInfo`), extração de textos/botões e injeção de toques. | Agente | 5h 30m | ~70.000 | 🟢 Concluído | D+0 |
+| **OB-04** | **Cápsula Flutuante Minimalista (Floating HUD Overlay)**<br>Janela flutuante (`TYPE_APPLICATION_OVERLAY`) compacta com modo bolha recolhida e modo expandido sobre qualquer app. | Agente | 3h 30m | ~45.000 | 🟢 Concluído | D+0 |
+| **OB-05** | **Ponte de Instalação Autônoma de APKs (OTA Installer)**<br>`PackageInstaller` e `FileProvider` permitindo que o OpenBrain baixe e instale APKs sozinho sem PC. | Agente + Dev | 3h 00m | ~40.000 | 🟢 Concluído | D+0 |
+| **OB-06** | **Módulo de Controle de Hardware Básico (Paridade Siri/Google)**<br>Lanterna, Volume, Brilho, Wi-Fi/Bluetooth panel, Não Perturbe e Telemetria de Bateria. | Agente | 3h 30m | ~45.000 | 🟢 Concluído | D+0 |
 
 ---
 

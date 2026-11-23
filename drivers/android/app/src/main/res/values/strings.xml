@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">OpenBrain</string>
+    <string name="accessibility_service_description">Motor de Acessibilidade do OpenBrain para leitura inteligente da tela, automação de aplicativos e assistência personalizada sem necessidade de APIs proprietárias.</string>
+</resources>
