@@ -124,6 +124,20 @@ public class OpenBrainAccessibilityService extends AccessibilityService {
     }
 
     /**
+     * Executa a ação global de Voltar
+     */
+    public boolean performBack() {
+        return performGlobalAction(GLOBAL_ACTION_BACK);
+    }
+
+    /**
+     * Executa a ação global de Home
+     */
+    public boolean performHome() {
+        return performGlobalAction(GLOBAL_ACTION_HOME);
+    }
+
+    /**
      * Preenche texto no campo editável focado
      */
     public boolean inputText(String text) {
