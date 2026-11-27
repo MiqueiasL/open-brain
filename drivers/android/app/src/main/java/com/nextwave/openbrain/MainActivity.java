@@ -9,17 +9,22 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import com.nextwave.openbrain.accessibility.OpenBrainAccessibilityService;
+import com.nextwave.openbrain.ai.AiOrchestrator;
+import com.nextwave.openbrain.ai.LlmConfig;
 import com.nextwave.openbrain.brain.BrainDispatcher;
 import com.nextwave.openbrain.control.DeviceControlManager;
 import com.nextwave.openbrain.hud.FloatingHudService;
@@ -29,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements VoiceManager.Voic
     private static final int PERM_REQ_AUDIO = 201;
 
     private Button btnStatusA11y;
+    private Button btnSettingsIa;
     private Button btnToggleHud;
     private ScrollView scrollHistory;
     private LinearLayout layoutChatHistory;
@@ -38,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements VoiceManager.Voic
     private Button btnSendCommand;
 
     private DeviceControlManager controlManager;
-    private BrainDispatcher dispatcher;
+    private AiOrchestrator aiOrchestrator;
     private VoiceManager voiceManager;
     private boolean isListening = false;
 
@@ -48,10 +54,11 @@ public class MainActivity extends AppCompatActivity implements VoiceManager.Voic
         setContentView(R.layout.activity_main);
 
         controlManager = new DeviceControlManager(this);
-        dispatcher = new BrainDispatcher(this, controlManager);
+        aiOrchestrator = new AiOrchestrator(this, controlManager);
         voiceManager = new VoiceManager(this, this);
 
         btnStatusA11y = findViewById(R.id.btn_status_a11y);
+        btnSettingsIa = findViewById(R.id.btn_settings_ia);
         btnToggleHud = findViewById(R.id.btn_toggle_hud);
         scrollHistory = findViewById(R.id.scroll_history);
         layoutChatHistory = findViewById(R.id.layout_chat_history);
@@ -59,6 +66,9 @@ public class MainActivity extends AppCompatActivity implements VoiceManager.Voic
         etCommandInput = findViewById(R.id.et_command_input);
         btnVoiceRecord = findViewById(R.id.btn_voice_record);
         btnSendCommand = findViewById(R.id.btn_send_command);
+
+        // Configuração de IA (Gemini, Groq, Claude, OpenAI, etc.)
+        btnSettingsIa.setOnClickListener(v -> showSettingsDialog());
 
         // Ação do Botão de Acessibilidade
         btnStatusA11y.setOnClickListener(v -> {
@@ -95,6 +105,76 @@ public class MainActivity extends AppCompatActivity implements VoiceManager.Voic
                 toggleVoiceListening();
             }
         });
+
+        updateSettingsButtonLabel();
+    }
+
+    private void updateSettingsButtonLabel() {
+        LlmConfig cfg = aiOrchestrator.getConfig();
+        String hasKey = !cfg.getApiKey().isEmpty() ? " 🟢" : " 🔴";
+        btnSettingsIa.setText("⚙️ " + cfg.getProvider().name() + hasKey);
+    }
+
+    private void showSettingsDialog() {
+        LlmConfig cfg = aiOrchestrator.getConfig();
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setPadding(40, 24, 40, 16);
+
+        TextView tvProv = new TextView(this);
+        tvProv.setText("Selecione o Provedor de IA:");
+        tvProv.setTextColor(Color.WHITE);
+        layout.addView(tvProv);
+
+        Spinner spinner = new Spinner(this);
+        LlmConfig.Provider[] providers = LlmConfig.Provider.values();
+        String[] names = new String[providers.length];
+        int selectedIndex = 0;
+        for (int i = 0; i < providers.length; i++) {
+            names[i] = providers[i].displayName;
+            if (providers[i] == cfg.getProvider()) selectedIndex = i;
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, names);
+        spinner.setAdapter(adapter);
+        spinner.setSelection(selectedIndex);
+        layout.addView(spinner);
+
+        TextView tvKey = new TextView(this);
+        tvKey.setText("\nChave de API (API Key):");
+        tvKey.setTextColor(Color.WHITE);
+        layout.addView(tvKey);
+
+        EditText etKey = new EditText(this);
+        etKey.setHint("Cole sua API Key aqui...");
+        etKey.setText(cfg.getApiKey());
+        etKey.setTextColor(Color.WHITE);
+        etKey.setHintTextColor(Color.GRAY);
+        layout.addView(etKey);
+
+        TextView tvModel = new TextView(this);
+        tvModel.setText("\nModelo Neural:");
+        tvModel.setTextColor(Color.WHITE);
+        layout.addView(tvModel);
+
+        EditText etModel = new EditText(this);
+        etModel.setText(cfg.getModel());
+        etModel.setTextColor(Color.WHITE);
+        layout.addView(etModel);
+
+        new AlertDialog.Builder(this)
+                .setTitle("🧠 Cérebro de IA do OpenBrain")
+                .setView(layout)
+                .setPositiveButton("Salvar", (dialog, which) -> {
+                    int pos = spinner.getSelectedItemPosition();
+                    cfg.setProvider(providers[pos]);
+                    cfg.setApiKey(etKey.getText().toString());
+                    cfg.setModel(etModel.getText().toString());
+                    updateSettingsButtonLabel();
+                    Toast.makeText(this, "IA configurada: " + providers[pos].displayName, Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
     }
 
     private void toggleVoiceListening() {
@@ -115,17 +195,20 @@ public class MainActivity extends AppCompatActivity implements VoiceManager.Voic
 
     private void executeJarvisCommand(String prompt) {
         addMessageBubble("👤 VOCÊ", prompt, Color.parseColor("#38BDF8"), Color.parseColor("#1E293B"));
+        tvVoiceStatus.setText("🧠 Jarvis pensando...");
 
-        // O Cérebro processa o comando e aciona os Braços
-        BrainDispatcher.ActionResult result = dispatcher.dispatch(prompt);
+        // O Cérebro Neural (Gemini / LLM) processa a ordem e dispara as Tools
+        aiOrchestrator.processPrompt(prompt, result -> {
+            tvVoiceStatus.setText("Toque no microfone para falar ou digite abaixo");
 
-        // Feedback Falado via TTS
-        voiceManager.speak(result.spokenText);
+            // Feedback Falado via TTS
+            voiceManager.speak(result.spokenText);
 
-        // Feedback Visual
-        String responseDisplay = result.spokenText + "\n\n" + result.detailedLog;
-        int textColor = result.success ? Color.parseColor("#4ADE80") : Color.parseColor("#F87171");
-        addMessageBubble("🤖 JARVIS", responseDisplay, textColor, Color.parseColor("#0F172A"));
+            // Feedback Visual
+            String responseDisplay = result.spokenText + (result.detailedLog != null && !result.detailedLog.isEmpty() ? "\n\n" + result.detailedLog : "");
+            int textColor = result.success ? Color.parseColor("#4ADE80") : Color.parseColor("#F87171");
+            addMessageBubble("🤖 JARVIS", responseDisplay, textColor, Color.parseColor("#0F172A"));
+        });
     }
 
     private void addMessageBubble(String sender, String message, int textColor, int bgColor) {
